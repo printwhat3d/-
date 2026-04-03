@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>印你所想 PRINT YOUR IDEA - 客製化需求單</title>
+    <style>
+        :root {
+            --primary-color: #D4AF37; /* 呼應LOGO的尊榮金 */
+            --primary-hover: #F3E5AB;
+            --bg-dark: #000000;
+            --bg-gradient: radial-gradient(circle at top right, #1a1a2e, #000000);
+            --form-bg: #111827;
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --border-color: #374151;
+            --input-bg: #1F2937;
+            --input-focus: #4B5563;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang TC', '微軟正黑體', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--form-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        /* 頭部設計 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin: 0 0 8px 0;
+            color: var(--text-main);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label.question-title {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .required {
+            color: #EF4444;
+            margin-left: 4px;
+        }
+
+        .help-text {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        /* 輸入品外觀 */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #6B7280;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: var(--input-focus);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        /* 單選與多選按鈕 */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: 0.2s;
+            background-color: var(--input-bg);
+        }
+
+        .option-label:hover {
+            background-color: var(--input-focus);
+            border-color: #6B7280;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.3);
+            accent-color: var(--primary-color);
+        }
+
+        /* 漸層金屬送出按鈕 */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #B8860B, #FFD700);
+            color: #000000;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #FFD700, #FFF8DC);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* 底部行動呼籲按鈕 */
+        .action-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        .btn-link {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .btn-line {
+            background-color: #06C755;
+            color: white;
+            box-shadow: 0 4px 10px rgba(6, 199, 85, 0.2);
+        }
+
+        .btn-line:hover {
+            background-color: #05A346;
+        }
+
+        .btn-portfolio {
+            background-color: transparent;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-portfolio:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        /* 成功畫面 */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        var submitted = false;
+        function showSuccess() {
+            if(submitted) {
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="success-message">
+        <div class="success-icon">✨</div>
+        <h2 style="color: var(--text-main); letter-spacing: 1px;">表單已成功送出！</h2>
+        <p style="color: var(--text-muted); margin-bottom: 35px;">感謝您的填寫，【印你所想 PRINT YOUR IDEA】將盡快為您評估報價。</p>
+        
+        <p style="font-weight: 500; margin-bottom: 15px; color: var(--primary-hover);">👇 請點擊下方按鈕加入 LINE 並傳送您的檔案：</p>
+        <a href="https://page.line.me/774tbaow" class="btn-link btn-line" target="_blank">🟢 點我加入 LINE 官方帳號</a>
+        <br>
+        <a href="https://makerworld.com/zh" class="btn-link btn-portfolio" target="_blank">🔗 MakerWorld 去挑挑喜歡的模型吧</a>
+    </div>
+
+    <div id="form-container">
+        <div class="header">
+            <h1>印你所想 PRINT YOUR IDEA</h1>
+            <p>客製化 3D 列印需求單</p>
+        </div>
+
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="showSuccess()"></iframe>
+        
+        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSf1UJrWsX-j3tuRS9tNDCZRGqL_dysEMfZRF8x0lhrGeSr-Bg/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+            
+            <div class="form-group">
+                <label class="question-title">姓名 / 稱呼<span class="required">*</span></label>
+                <input type="text" name="entry.1203553933" required placeholder="請輸入您的姓名或稱呼">
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">聯絡電話<span class="required">*</span></label>
+                <input type="tel" name="entry.2112850191" required placeholder="請輸入聯絡電話">
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">電子信箱<span class="required">*</span></label>
+                <input type="email" name="entry.354106225" required placeholder="example@email.com">
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">是否有 3D 模型檔案？<span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="option-label">
+                        <input type="radio" name="entry.1180150218" value="已有 STL/OBJ 檔案" required> 已有 STL/OBJ 檔案
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="entry.1180150218" value="沒有檔案，需要協助建模" required> 沒有檔案，需要協助建模
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="entry.1180150218" value="只有參考圖片" required> 只有參考圖片
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">檔案傳送方式說明<span class="required">*</span></label>
+                <span class="help-text">請將您的 3D 模型檔案或參考圖片，寄至信箱：print.what.3d@gmail.com ，或直接傳送至官方 LINE。<br>⚠️ 寄送時，<strong style="color:var(--primary-color);">【檔名請務必標註您的手機後3碼】</strong>以便我們核對喔！</span>
+                <div class="checkbox-group">
+                    <label class="option-label">
+                        <input type="checkbox" name="entry.1143934185" value="我已了解，填妥表單後會傳送檔案" required> 
+                        我已了解，填妥表單後會傳送檔案
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">預估尺寸</label>
+                <span class="help-text">請提供大概的 長 x 寬 x 高 (單位：公分)</span>
+                <input type="text" name="entry.389490547" placeholder="例如：10 x 5 x 5 cm">
+            </div>
+
+            <div class="form-group">
+                <label class="question-title">備註留言</label>
+                <span class="help-text">有其他想討論的細節都可以在這裡告訴我們！</span>
+                <textarea name="entry.1603750348" rows="4" placeholder="請填寫其他需求..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">送出需求，開始評估</button>
+
+        </form>
+
+        <div class="action-buttons">
+            <div style="text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 10px;">👇 想要先聊聊或看作品？</div>
+            <a href="https://page.line.me/774tbaow" class="btn-link btn-line" target="_blank">💬 加入 LINE 官方帳號溝通</a>
+            <a href="https://makerworld.com/zh" class="btn-link btn-portfolio" target="_blank">🔗 MakerWorld 去挑挑喜歡的模型吧</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
